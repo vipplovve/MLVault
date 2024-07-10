@@ -72,11 +72,13 @@ FileName = input("Enter the name of the DataSet: ");
 
 print();
 
-Target = input("Enter the name of the Target Variable: ");
+Categorials = input("Enter the name of All Categorial Variables & The Target Variable: ").split();
 
 print();
 
 Dataset = pd.read_csv(FileName);
+
+Dataset = pd.get_dummies(Dataset, columns= Categorials);
 
 Train, Valid, Test = np.split(Dataset.sample(frac=1), [int(.6*len(Dataset)), int(.8*len(Dataset))]);
 
@@ -131,3 +133,11 @@ Report = sklearn.metrics.classification_report(TestO, Predictions);
 print("\nClassification Report using a Neural Network Model: -\n");
 
 print(Report);
+
+Accuracy = sklearn.metrics.accuracy_score(TestO, Predictions);
+
+print("Specifications For The Network: \n");
+
+print(NNModel.summary(), '\n');
+
+print("\nAccuracy Score For This Neural Network Model is: ", Accuracy * 100, "%", '\n');

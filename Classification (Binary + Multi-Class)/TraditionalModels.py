@@ -10,9 +10,15 @@ from sklearn import svm;
 
 FileName = input("Enter the name of the DataSet: ");
 
-Target = input("Enter the name of the Target Variable: ");
+print();
+
+Categorials = input("Enter the name of All Categorial Variables & The Target Variable: ").split();
+
+print();
 
 Dataset = pd.read_csv(FileName);
+
+Dataset = pd.get_dummies(Dataset, columns= Categorials);
 
 Train, Valid, Test = np.split(Dataset.sample(frac=1), [int(.6*len(Dataset)), int(.8*len(Dataset))]);
 
